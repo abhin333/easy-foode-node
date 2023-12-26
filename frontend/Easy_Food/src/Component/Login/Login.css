@@ -1,0 +1,67 @@
+@media (max-width: 768px) {
+  .main {
+    background: #f7f6ff;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+   
+  }
+  .burggerimg {
+    position: absolute;
+  }
+  .loginbox {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 11rem;
+    height: 65vh;
+    width: 75%;
+    border-radius: 49px;
+    border: 1px solid #fff;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .right-cornner {
+    position: absolute;
+    top: 50rem;
+    left: 14rem;
+  }
+  .input-filed{
+    position: absolute;
+    top: 12rem;
+  }
+  .email{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .password{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+ 
+    .forgot{
+     font-size: small;
+     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+     color:rgba(0, 0, 0, 0.315);
+     margin-left: 7rem;
+     cursor: pointer;
+    }
+    .loginbutton{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 96px;
+    }
+    h4{
+      text-align: center;
+    }
+}
+@media (max-width: 380px) {
+
+
+}

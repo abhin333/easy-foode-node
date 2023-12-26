@@ -1,0 +1,31 @@
+@media (max-width: 768px) {
+.container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    
+}
+.p{
+    color:blue;
+}
+.s{
+    color: rgb(0, 0, 0);
+}
+.delivery-img{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.del{
+    width: 200px;
+    height: 200px;
+}
+}

@@ -1,0 +1,41 @@
+@media (max-width: 768px) {
+  .categeory2 {
+    position: relative;
+    width: 140px;
+    height: 190px;
+    background-color: white;
+    border-radius: 22px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+  .image {
+    position: absolute;
+    right: 1.5rem;
+  }
+  .name {
+    position: relative;
+    top: 6rem;
+    left: 1rem;
+  }
+  .star {
+    position: absolute;
+    top: 2rem;
+  }
+  .price {
+    position: relative;
+    top: 3rem;
+    right: 1rem;
+    
+  }
+  
+  .imgsss{
+    width: 100px;
+    height: 100px;
+
+  }
+  .price-mark{
+    font-weight: 700;
+  }
+  
+  
+}

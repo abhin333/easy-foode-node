@@ -1,0 +1,49 @@
+.card1 {
+  width: 341px;
+  height: 546px;
+  border-radius: 34px;
+  border: 1px solid #fff;
+  background-color: rgba(222, 33, 33, 0.79);
+  position: relative;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 15px;
+  color: white;
+}
+.imges {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 1rem;
+}
+.img-q {
+  width: 200px;
+  height: 200px;
+}
+.discreption-new{
+    margin-top: 18rem;
+    margin-left: 15px;
+}
+
+@media (max-width: 768px) {
+
+.starnew{
+    position: absolute;
+    top: 16rem;
+    left: 2rem;
+    
+}
+.price-new{
+    position: relative;
+    top: 5rem;
+}
+.name-new{
+  position: absolute;
+  top: 14rem;
+  left: 2rem;
+}
+}

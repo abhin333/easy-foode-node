@@ -1,0 +1,11 @@
+.login-child2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  width: 181px;
+  height: 27px;
+  border: 1px solid #000;
+  background: rgba(247, 16, 16, 0.7);
+  color: white;
+}

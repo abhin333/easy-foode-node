@@ -1,0 +1,39 @@
+@media (max-width: 768px) {
+.login_btn-parent {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #000;
+    width: 212px;
+    height: 36px;
+    margin-top: 76px;
+  }
+  .login-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 109px;
+    height: 36px;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: rgba(247, 16, 16, 0.73);
+  }
+  .siginup-child {
+    color: #d98787;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #fff;
+
+  }
+  .signup{
+    margin-left: 31px;
+  }
+}

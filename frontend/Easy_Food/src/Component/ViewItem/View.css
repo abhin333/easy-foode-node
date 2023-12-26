@@ -1,0 +1,36 @@
+.main3 {
+    height:110vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    background-color: #f7f6ff;
+  }
+  .header2 {
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    position: absolute;
+  }
+  .icons2 {
+    padding: 10px;
+    margin-left: 12px;
+  }
+  .avathar {
+    padding: 10px;
+    size: 12px;
+  }
+  .cards{
+    position: absolute;
+    top: 5rem;
+    display: flex;
+    justify-content: center;
+  }
+  .cart_new{
+    position:absolute;
+    top: 42rem;
+    right: 3rem;
+    
+  }

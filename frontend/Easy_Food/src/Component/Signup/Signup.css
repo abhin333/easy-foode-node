@@ -1,0 +1,63 @@
+@media (max-width: 768px) {
+    .login_btn-parent {
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        border: 1px solid #000;
+        width: 212px;
+        height: 36px;
+        margin-top: 76px;
+        background: rgba(247, 16, 16, 0.73) !important;
+        color: #fff;
+
+      }
+      .login-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 109px;
+        height: 36px;
+        color: #d98787;
+
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border-radius: 10px;
+        border: 1px solid #000;
+        background-color: #fff !important;
+      }
+      .siginup-child {
+        color: #fff;
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .signup{
+        margin-left: 31px;
+      }
+      .input-filed{
+        position: absolute;
+        top:8rem;
+      }
+      .loginbutton{
+        position: relative;
+        bottom: 4rem;
+      }
+      h4{
+        position: relative;
+        bottom: 3.5rem;
+      }
+      .social{
+        position: relative;
+        bottom: 5rem;
+      }
+      .name{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }

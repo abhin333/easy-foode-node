@@ -1,0 +1,167 @@
+@media (max-width: 768px) {
+  .main2 {
+    height:150vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    width: 100%;
+    position: relative;
+    background-color: #f7f6ff;
+  }
+  .header2 {
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    position: absolute;
+  }
+  .icons2 {
+    padding: 10px;
+    margin-left: 12px;
+  }
+  .avathar {
+    padding: 10px;
+    size: 12px;
+  }
+  p {
+    color: #000;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    position: absolute;
+    top: 78px;
+    left: 31px;
+  }
+  .search-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 70%;
+    top: 123px;
+    color: #000;
+    font-family: Inika;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .custom-input {
+    text-align: center;
+  }
+  .categeory {
+    position: absolute;
+    top: 12rem;
+    color: #000;
+    font-family: Inika;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 92px;
+    height: 17px;
+  }
+  .list-items {
+    width: 100%;
+    height: 190px;
+    position: absolute;
+    top: 11rem;
+    align-items: center;
+  }
+  .berger{
+    width: 100%;
+    height: 190px;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .list-items::-webkit-scrollbar {
+    display: none;
+  }
+  .burgger-dis {
+    position: absolute;
+    top: 25rem;
+    left: 22px;
+    width: 100px;
+    height: 28px;
+    text-align: center;
+    font-weight: 700;
+    transform: rotate(-0.871deg);
+    border-radius: 12px;
+    border: 1px solid #de6565;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  .categeory-list{
+ width: 100%;
+ height: 50vh;
+ position:absolute;
+ top: 29rem;
+ padding:15px;
+ display: flex;
+ justify-content: center;
+ flex-wrap: wrap;
+ gap: 20px;
+ }
+ .cart-pic{
+  position:absolute;
+  top:72rem;
+  left:19rem;
+ }
+ .ecllips{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 12px;
+  position: absolute;
+  top:72rem;
+  gap: 2px;
+ }
+ .circle1{
+  width: 20px;
+  height: 20px;
+  background-color: #de6565;
+  border-radius: 50%;
+ }
+ .circle2{
+  width: 20px;
+  height: 20px;
+  background-color: #c5c5c5;
+  border-radius: 50%;
+ }
+ .circle3{
+  width: 20px;
+  height: 20px;
+  background-color: #c5c5c5;
+  border-radius: 50%;
+ }
+ .circle4{
+  width: 20px;
+  height: 20px;
+  background-color: #c5c5c5;
+  border-radius: 50%;
+ }
+ .clik{
+  width: 40px;
+  height: 40px;
+  background-color: aqua;
+  border-radius: 50%;
+  cursor: pointer;
+  position: fixed;
+  top: 37rem;
+  left:19rem;
+
+}
+.react-chatbot-kit-chat-message-container{
+  background-color: rgba(137, 43, 226, 0.356);
+}
+.bot-img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  
+}
+
+}

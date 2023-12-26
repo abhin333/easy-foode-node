@@ -1,0 +1,71 @@
+@media (max-width: 768px) {
+
+.main5 {
+    height:110vh;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    background-color: #f7f6ff;
+  }
+  .header5 {
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    position: absolute;
+  }
+  .icons5 {
+    padding: 10px;
+    margin-left: 12px;
+  }
+  .avathar5 {
+    padding: 10px;
+    size: 12px;
+  }
+  .box{
+    position: absolute;
+    width: 90%;
+    height: 50vh;
+    top: 5rem;
+    border: 1px solid black;
+    padding: 10px;
+  }
+  .inputfiled{
+    width: 90%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+  }
+  .button{
+    width:150px;
+    height: 25px;
+    background-color: rgba(226, 75, 75, 0.856);
+    border-radius: 20px;
+    position: absolute;
+    top: 19rem;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    align-items: center;
+    color: white;
+
+  }
+  .payment{
+    width: 80%;
+    height: 100px;
+    position: absolute;
+    top: 11rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pay{
+    font-size: small;
+    font-weight: 800;
+  }
+ 
+}
