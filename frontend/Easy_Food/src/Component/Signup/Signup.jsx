@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import Login from '../Login/Login'
 import "./Signup.css";
-import { TextField } from "@mui/material";
+import { TextField, duration } from "@mui/material";
 import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LoginBar from "../Login/Loginbar/LoginBar";
@@ -18,7 +18,7 @@ import axios from "axios";
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     mobile_no: "",
     email: "",
     password: "",
@@ -46,11 +46,15 @@ const passwordUnShows=()=>{
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    console.log("dsavgtuyrd",name,value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(formData.mobile_no===''||formData.name===''||formData.confirm_password===''){
+    if(formData.mobile_no===''||formData.username===''||formData.confirm_password===''){
       toast.error("Please Enter The Data",{duration:1500});
       return 
     }
@@ -59,12 +63,21 @@ const passwordUnShows=()=>{
       return;
     }
     try{ 
-      await axios.post('http://localhost:3005/signup',{formData}).then((res)=>{
-        console.log("response",res);
+      await axios.post('http://localhost:3005/signup',{data:formData}).then((res)=>{
+        console.log("ressspp",res);
+        if(res.status==200){
+          toast.success("successfully registred")
+          navigate('/login')
+
+        }
+        else{
+          toast.error("registration faield")
+        }
       })
+      
 
     }catch(error){
-        console.log("erooro",error);
+        toast.error(error.response.data.error,{duration:1000})
     }
    
   };
@@ -95,9 +108,9 @@ const passwordUnShows=()=>{
                 <TextField
                   id="standard-basic"
                   label="Name"
-                  name="name"
+                  name="username"
                   variant="standard"
-                  value={formData.name}
+                  value={formData.username}
                   onChange={handleChange}
                   required
                   sx={{
@@ -114,7 +127,7 @@ const passwordUnShows=()=>{
               <div className="mobile-number">
                 <TextField
                   id="standard-basic"
-                  label="mobile_no"
+                  label="Mobile_no"
                   name="mobile_no"
                   type={"number"}
                   variant="standard"

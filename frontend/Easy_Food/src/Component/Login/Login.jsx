@@ -13,11 +13,11 @@ import { motion } from "framer-motion";
 import toast, { Toaster } from 'react-hot-toast';
 import burggerimg from "../../assets/image/burggerpices.png"
 import tomatto from "../../assets/image/tomatto.png"
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
  
-
   const [show,setShow]=useState(false)
 
   const [loginData, setLoginData] = useState({
@@ -42,12 +42,24 @@ const Login = () => {
     setShow(true)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     if(loginData.email ==='' ||loginData.password ===''){
       toast.error("Please Enter Email or Password")
       return
     }
     e.preventDefault();
+    try{
+      const res= await axios.post("http://localhost:3005/login",{data:loginData})
+        if(res.status==200){
+          toast.success("successfuly login")
+          setTimeout(()=>{
+            navigate('/items')
+          },1000)
+          localStorage.setItem('isLoggedIn', true);
+        }
+    }catch(error){
+      toast.error(error.response.data.error)
+    }
      
   };
   return (
