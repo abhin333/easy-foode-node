@@ -25,8 +25,29 @@ const Payment = ({ children }) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
-  const displayRazorpay = async() => {
-    
+
+  const clickHandler = async (data) => {
+    console.log("paymentdata", data);
+
+    try {
+      const response = await axios.post('http://localhost:3005/api/v1/order', data).then((res)=>displayRazorpay())
+    } catch (error) {
+      console.error("Error:", error);
+      alert(error.message);
+    }
+  };
+
+  const logOut = () => {
+    localStorage.clear();
+
+  };
+  const back = () => {
+    navigate("/items");
+  };
+
+
+  const displayRazorpay = async () => {
+
     const options = {
       key: "rzp_test_t5X4q81qTu1P6e", // Enter the Key ID generated from the Dashboard
       key_secret: "kgI42J6PsK9qH6v1KZeFWvba",
@@ -54,23 +75,14 @@ const Payment = ({ children }) => {
         color: "#61dafb",
       },
     };
-  
+
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
 
   }
 
 
-  const clickHandler = (data) => {
-    
-  };
-  const logOut = () => {
-    localStorage.clear();
-    
-  };
-  const back = () => {
-    navigate("/items");
-  };
+
   return (
     <div>
       <form>
@@ -88,7 +100,7 @@ const Payment = ({ children }) => {
               <Avatar
                 sizes="12px"
                 alt="Remy Sharp"
-                // src="/static/images/avatar/1.jpg"
+              // src="/static/images/avatar/1.jpg"
               />
             </div>
           </div>

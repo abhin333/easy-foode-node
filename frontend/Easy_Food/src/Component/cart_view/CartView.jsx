@@ -6,7 +6,7 @@ import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const CartView = (props) => {
-  const {id,name}=props;
+  const {id,product_name}=props;
 const navigate=useNavigate()
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
@@ -25,7 +25,6 @@ const navigate=useNavigate()
     setData(dataList);
     
   },[])
- 
  
 const increment =(index,event)=>{
   const newCount = [...count];
@@ -96,13 +95,13 @@ const calculation=(dataList2)=>{
           </div>
               <div className="box3">
         {data.map((event, index) => {
-        
+        console.log("@@@@@@@@@",event);
           return (
             <>
                 <div className="item_view3">
                   <p className="name3" >{event.Cart.item.name}</p>
                   <div className="images3">
-                    <img className="image3" src={event.Cart.item.url} alt="img" />
+                    <img className="image3" src={`http://localhost:3005/Images/${event.Cart.item.url}`} alt="img" />
                   </div>
                   
                   <div className="count_icon3">

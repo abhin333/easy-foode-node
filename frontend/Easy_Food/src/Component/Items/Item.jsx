@@ -1,26 +1,31 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import { Avatar, Pagination } from "@mui/material";
 import ShortTextIcon from "@mui/icons-material/ShortText";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "./Item.css";
 import Burger from "./Burggers/Burger";
-import Categeory from "./Categeory/categeory";
+import Categeory from "./Categeory/Categeory";
 import Cart from "../cart/Cart";
 import { logo_api, imgapi, pizza, chicken } from "../../api";
-import { useNavigate,  } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 import { motion } from "framer-motion";
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import config from "../../config";
 import MessageParser from "../../MessageParser";
 import ActionProvider from "../../ActionProvider";
+import axios from "axios"
 
 
 const Item = () => {
+
+
+
+
   const navigate = useNavigate();
   const logOut = () => {
     localStorage.clear();
-    
+
   }
 
   const viewCart = () => {
@@ -38,16 +43,54 @@ const Item = () => {
 
 
 
-
+  const [data, setData] = useState([])
   const [logo, setLogo] = useState(logo_api);
-  const [image, setImage] = useState(imgapi);
-  const [chickenLogo, SetChickenLogo] = useState(chicken);
-  const [pizzaLogo, setPizzaLogo] = useState(pizza);
+  const [image, setImage] = useState([]);
+  const [chickenLogo, setChickenLogo] = useState([]);
+  const [pizzaLogo, setPizzaLogo] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const [name, setName] = useState("Burgger");
+  const [name, setName] = useState("Burger");
   // const [hover, setHover] = useState(false);
   const [index2, setIndex2] = useState(0);
+
+
+
+  useEffect(() => {
+     dataFetch()
+  }, [name])
+
+   useEffect(()=>{
+    filtreData()
+   },[data])
+
+
+  const dataFetch = async () => {
+      console.log("abhin");
+      await axios.get('http://localhost:3005/api/v1/view').then((response)=>{
+        console.log("uuuuuuuuuuuu33333333###",response);
+        setData(response.data);
+        console.log("uuuuuuuuuuuus", data); 
+      }).catch((error)=>{
+        alert("errorsssssssss",error);
+        console.log("eeeeee",error);
+      })
+     
+    
+  };
+
+
+const filtreData=()=>{
+  const filteredData = data.filter((item) => item.product_name === 'Burger');
+  setImage(filteredData);
+  const filterChicken=data.filter((item)=>item.product_name ==="Chicken");
+  setChickenLogo(filterChicken);
+  const filterPizza=data.filter((item)=>item.product_name === 'Pizza')
+  setPizzaLogo(filterPizza);
+}
+
+  
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -56,7 +99,7 @@ const Item = () => {
   const clcikHandler = (event, index) => {
     navigate("/view", { state: { event } });
   };
-  const mouseEnter = (index,name) => {
+  const mouseEnter = (index, name) => {
     setName(name);
     setIndex2(index);
   };
@@ -65,6 +108,7 @@ const Item = () => {
     setIndex2(-1);
 
   };
+
 
   return (
     <div>
@@ -83,7 +127,7 @@ const Item = () => {
               sizes="12px"
               sx={{ fontSize: "12px" }}
               alt="Remy Sharp"
-              // src="/static/images/avatar/1.jpg"
+            // src="/static/images/avatar/1.jpg"
             ></Avatar>
           </div>
         </div>
@@ -109,12 +153,12 @@ const Item = () => {
           initial={{ x: "-100" }}
           animate={{ x: 0 }}
           transition={{ delay: 0.1, duration: 2 }}
-          
+
         >
           <div className="berger" >
-        
 
-                <Burger data={logo_api} index2={index2} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} />
+
+            <Burger data={logo_api} index2={index2} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} />
           </div>
         </motion.div>
         <span className="burgger-dis">{name}</span>
@@ -124,60 +168,64 @@ const Item = () => {
           animate={{ y: 0 }}
           transition={{ delay: 0.1, duration: 2 }}
         >
-          {name === "Burgger"
+          {name === "Burger"
             ? image.map((event, index) => {
-                const url = event.url;
-                const name = event.name;
-                const price = event.price;
-                return (
-                  <div key={event.id} onClick={() => clcikHandler(event, index)}>
-                    <Categeory url={url} name={name} price={price} />
-                  </div>
-                );
-              })
+              const url = event.image;
+              const name = event.product_name;
+              const price = event.price;
+              return (
+                <div key={event.id} onClick={() => clcikHandler(event, index)}>
+                  <Categeory url={url} name={name} price={price} />
+                </div>
+              );
+            })
             : ""}
           {name === "Chicken"
             ? chickenLogo.map((event, index) => {
-                const url = event.url;
-                const name = event.name;
-                const price = event.price;
+              const url = event.image;
+              const name = event.product_name;
+              const price = event.price;
 
-                return (
-                  <div key={index} onClick={() => clcikHandler(event, index)}>
-                    <Categeory url={url} name={name} price={price} />
-                  </div>
-                );
-              })
+              return (
+                <div key={index} onClick={() => clcikHandler(event, index)}>
+                  <Categeory url={url} name={name} price={price} />
+                </div>
+              );
+            })
             : ""}
           {name === "Pizza"
             ? pizzaLogo.map((event, index) => {
-                const url = event.url;
-                const name = event.name;
-                const price = event.price;
-                return (
-                  <div key={event.id} onClick={() => clcikHandler(event, index)}>
-                    <Categeory url={url} name={name} price={price} />
-                  </div>
-                );
-              })
+              const url = event.image;
+              const name = event.product_name;
+              const price = event.price;
+              return (
+                <div key={event.id} onClick={() => clcikHandler(event, index)}>
+                  <Categeory url={url} name={name} price={price} />
+                </div>
+              );
+            })
             : ""}
         </motion.div>
-          <div className="clik" onClick={clickHandler}>
-        <img src="https://img.freepik.com/premium-vector/artificial-intelligence-ai-robot-chat-bot-logo-vector-template_8169-533.jpg" alt="" className="bot-img"/>
-      </div>
-      {isOpen ? (
-        <div style={{ display: "flex", float: "right",position:"fixed" }}>
-        <Chatbot
-            config={config}
-            messageParser={MessageParser}
-            actionProvider={ActionProvider}
-            headerText='Chatbot'
-            
-          />
+        <div className="clik" onClick={clickHandler}>
+          <img src="https://img.freepik.com/premium-vector/artificial-intelligence-ai-robot-chat-bot-logo-vector-template_8169-533.jpg" alt="" className="bot-img" />
         </div>
+        {isOpen ? (
+          <div style={{ display: "flex", float: "right", position: "fixed" }}>
+            <Chatbot
+              config={config}
+              messageParser={MessageParser}
+              actionProvider={ActionProvider}
+              headerText='Chatbot'
+
+            />
+          </div>
         ) : (
           ""
         )}
+
+
+
+
         <div className="ecllips">
           <div className="circle1"></div>
           <div className="circle2"></div>

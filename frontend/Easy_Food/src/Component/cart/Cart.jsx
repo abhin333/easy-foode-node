@@ -7,13 +7,9 @@ import { useEffect } from "react";
 const Cart = () => {
   const context = useContext(MyContext);
   const [item, setItem] = useState([]);
-  const { name, url, price, id } = context.objectToPass;
+  const { product_name, image, price,_id } = context.objectToPass;
   const navigate = useNavigate();
-  useEffect(() => {
-    if (item.length > 0) {
-      updatefirestore(item);
-    }
-  }, [item]);
+ 
   if (item.length == 0) {
     const storedItems = localStorage.getItem("cartItems");
     if (storedItems) {
@@ -24,22 +20,22 @@ const Cart = () => {
     item.length > 0
       ? localStorage.setItem("cartItems", JSON.stringify(item))
       : "";
-    navigate("/cart", { state: { name, url, price, id } });
+    navigate("/cart", { state: { product_name, image, price,_id } });
   };
 
   const clickHandler = () => {
     const newItem = {
       Cart: {
         item: {
-          name: name,
+          name: product_name,
           price: price,
-          url: url,
-          id: id,
+          url: image,
+          id: _id,
         },
       },
     };
-
-    const existingItem = item.find((e) => e.Cart.item.id === id);
+    const existingItem = item.find((e) => e.Cart.item.id === _id);
+    console.log("existing item,",existingItem);
 
     if (!existingItem) {
       // If the item doesn't exist, add it
@@ -56,9 +52,7 @@ const Cart = () => {
   };
   pageChange(item);
 
-  const updatefirestore = (item) => {
-    
-  };
+  
   return (
     <div>
       <div className="cart" onClick={clickHandler}>

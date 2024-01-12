@@ -17,7 +17,7 @@ import chicken3 from "./assets/image/chicken (3).png"
 export const logo_api = [
     {
       "id": 1,
-      "name": "Burgger",
+      "name": "Burger",
       "url": burgger,
     },
     {

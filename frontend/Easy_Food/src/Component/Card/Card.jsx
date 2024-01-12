@@ -7,20 +7,21 @@ import { Rating } from "@mui/material";
 
 const Card = () => {
   const context = useContext(MyContext);
-  const {name,url,price}=context.objectToPass
+  const {product_name,image,price}=context.objectToPass
+  console.log("uuuuuuuu999909",image);
   const [loading,setLoading]=useState(true)
   useEffect(() => {
-    if (url) {
-      const image = new Image();
-      image.src = url;
-      image.onload = () => {
+    if (image) {
+      const images = new Image();
+      images.src = image;
+      images.onload = () => {
         setLoading(false);
       };
-      image.onerror = () => {
+      images.onerror = () => {
         setLoading(false);
       };
     }
-  }, [url]);
+  }, [image]);
 
   return (
     <div>
@@ -39,11 +40,11 @@ const Card = () => {
                />
                </div>
           ):(
-          <img className="img-q" src={url} alt="img" loading="lazy"  />
+          <img className="img-q" src={`http://localhost:3005/Images/${image}`} alt="img" loading="lazy"  />
           )}
         
         </div>
-          <span className="name-new">{name}</span>
+          <span className="name-new">{product_name}</span>
         <div className="starnew"><Rating  value={3} readOnly size="small" /></div>
         <div className="discreption-new">
           This item is spicze and hot chille included.

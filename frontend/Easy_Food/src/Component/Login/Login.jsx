@@ -55,7 +55,7 @@ const Login = () => {
           setTimeout(()=>{
             navigate('/items')
           },1000)
-          localStorage.setItem('isLoggedIn', true);
+          localStorage.setItem('isLoggedIn', res.data.accessToken);
         }
     }catch(error){
       toast.error(error.response.data.error)

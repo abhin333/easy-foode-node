@@ -15,6 +15,7 @@ import Payment from "./Component/payment/Payment";
 import PaymentPage from "./Component/Pages/Payment/PaymentPage";
 import PageNot from "./Component/Pages/404/PageNot";
 import Success from "./Component/Pages/success/Success";
+import Hello from "./Component/Hello"
 const App = () => {
   
   const navigate = useNavigate();
@@ -32,11 +33,12 @@ const App = () => {
         <Route path="/cart" element={<ViewCart/>}/>
         <Route path="/payment" element={<PaymentPage/>}/>
         <Route path="/success" element={ <Success/>}/>
+        <Route path="/hello" element ={<Hello/>}/>
         <Route path="*" element={<PageNot/>}/>
 
       </Routes>
      
-      
+       
     </div>
   );
 };
