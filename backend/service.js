@@ -159,6 +159,18 @@ app.post('/api/v1/order',(req,res)=>{
 })
 
 
+app.get('/admin/api/v1',async(req,res)=>{
+  const allorders= await purchaseModel.find({})
+  console.log("eadeaaeadaea",allorders);
+  if(allorders){
+    res.status(200).json(allorders)
+  }
+  else{
+    res.status(400).json({error:"somthig went wrong "})
+  }
+
+})
+
 
 
 
