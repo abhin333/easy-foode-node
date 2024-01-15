@@ -16,6 +16,7 @@ import PaymentPage from "./Component/Pages/Payment/PaymentPage";
 import PageNot from "./Component/Pages/404/PageNot";
 import Success from "./Component/Pages/success/Success";
 import Hello from "./Component/Hello"
+import AdminPanel from "./Component/Adminpanel/Adminpanel";
 const App = () => {
   
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <div>
       <Routes>
+        
         <Route path="/" element={<Home />} />
         <Route path="/login" element={ <LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -34,6 +36,7 @@ const App = () => {
         <Route path="/payment" element={<PaymentPage/>}/>
         <Route path="/success" element={ <Success/>}/>
         <Route path="/hello" element ={<Hello/>}/>
+        <Route path ='/admin' element={<AdminPanel/>}/>
         <Route path="*" element={<PageNot/>}/>
 
       </Routes>

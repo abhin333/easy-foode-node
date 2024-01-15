@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShortTextIcon from "@mui/icons-material/ShortText";
 import { Avatar, Radio, TextareaAutosize, TextField } from "@mui/material";
 import "./Payment.css";
@@ -14,23 +14,56 @@ const Payment = ({ children }) => {
   const objectToPass = location.state.data;
   const price = location.state.price;
 
+
+
   const [data, setData] = useState({
     email: "",
     address: "",
     mobile: "",
     paymentMethod: "Cash On Delivery",
     items: objectToPass,
+    order_id: ''
   });
+  useEffect(() => {
+    generateRandomCode()
+  }, [data.length > 0])
+
+  const generateRandomCode = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let code = '';
+
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      console.log("fff", randomIndex);
+      code += characters.charAt(randomIndex);
+    }
+    console.log("ccc", code);
+    const updatedData = {
+      ...data,
+      order_id: code
+    };
+
+    setData(updatedData);
+  }
+
+  console.log("EEEEEE", data);
+
   const dataHandler = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
 
   const clickHandler = async (data) => {
-    console.log("paymentdata", data);
-
     try {
-      const response = await axios.post('http://localhost:3005/api/v1/order', data).then((res)=>displayRazorpay())
+      const response = await axios.post('http://localhost:3005/api/v1/order', data).then((res) => {
+     if(res.data.paymentMethod==='Gpay'){
+       displayRazorpay()
+     }
+     else{
+      navigate('/success')
+      localStorage.clear('cartItems')
+     }
+    })
     } catch (error) {
       console.error("Error:", error);
       alert(error.message);
@@ -55,11 +88,12 @@ const Payment = ({ children }) => {
       currency: "INR",
       name: "Fast FOOD.",
       description: "Test Transaction",
-      // order_id: '55125',
+      // order_id: data.order_id,
       image:
-        "https://upload.wikimedia.org/wikipedia/commons/7/75/Zomato_logo.png",
+        "https://images.crunchbase.com/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/nakelakvvkgahedukgxv",
       handler: function (response) {
-        // alert(response.razorpay_payment_id);
+        alert(response.razorpay_payment_id);
+
         localStorage.removeItem("cartItems");
         navigate("/success");
       },

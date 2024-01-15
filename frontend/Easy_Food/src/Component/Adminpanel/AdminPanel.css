@@ -1,0 +1,62 @@
+/* AdminPanel.css */
+
+.admin-panel-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.admin-panel-title {
+  color: #333;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-table th,
+.order-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.order-table thead {
+  background-color: #333;
+  color: #fff;
+}
+
+.order-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.btn-left{
+  display: flex;
+  float: right;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background:linear-gradient(green,pink);
+  cursor: pointer;
+}
+
+
+
+/* Responsive Styles for Mobile Devices */
+@media (max-width: 767px) {
+  .order-table th,
+  .order-table td {
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+
+  .admin-panel-title {
+    font-size: 1.5em; /* Adjust title font size for smaller screens */
+  }
+
+}
+
+
+
