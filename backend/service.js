@@ -1,31 +1,29 @@
-const express=require('express')
-const app=express()
+const express = require('express')
+const app = express()
 const cors = require('cors');
 app.use(express.json())
 app.use(cors({
-  origin:'*'
+  origin: '*'
 }));
 
 const multer = require('multer');
 const mongoose = require('mongoose');
-const userModel=require('./Model/signupModel')
-const productModel=require('./Model/productModel')
-const purchaseModel=require('./Model/purchaseModel')
+const userModel = require('./Model/signupModel')
+const productModel = require('./Model/productModel')
+const purchaseModel = require('./Model/purchaseModel')
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const path = require('path');
-const bcrypt=require('bcrypt');
+const bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser')
 app.use(cookieParser())
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 
 
-const {createToken,validateToken}=require('./JWT.JS')
-app.get('/',(req,res)=>{
-    res.send("ennada myree nokkunnea");
-})
+const { createToken, validateToken } = require('./JWT.JS')
+
 
 const hashPassword = async (password) => {
   const hash = await bcrypt.hash(password, 10);
@@ -59,51 +57,53 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/login',async(req,res)=>{
-  const { email,  password, } = req.body.data;
-  try{
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body.data  ;
+  console.log("emaik",email,"pass",password);
+  try {
     const user = await userModel.findOne({ email });
-    console.log("uuu",user);
-    if(user==null){
+
+    if (!user) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
-    const isPasswordValid =await bcrypt.compare(password, user.password).then((res)=>{
-      return res
-    })
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
-    const accessToken=createToken(user);
-    console.log("accesstoken",accessToken);
 
-    res.cookie("access-token",accessToken,{maxAge:60*60*20*30*1000})
-    res.status(200).json({accessToken, message: 'Login successful' });
+    const accessToken = createToken(user);
+    console.log("accesstoken", accessToken);
 
-  }catch(error){
+    res.cookie("access-token", accessToken, { maxAge: 60 * 60 * 20 * 30 * 1000 });
+    res.status(200).json({ accessToken, message: 'Login successful' });
+console.log("ddddrdrdrd", validateToken);
+
+  } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-})
-
+});
 
 //storage
 
-const storage=multer.diskStorage({
-  destination:(req,file,cb)=>{
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
     cb(null, path.join(__dirname, './public/Images'));
   },
-  filename:(req,file,cb)=>{
-    cb(null,file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
   }
 });
 
-const upload= multer({
-  storage:storage                                          
+const upload = multer({
+  storage: storage
 })
 
 
 app.post('/add', upload.single('file'), (req, res) => {
-   const { productName, productPrice } = req.body;
+  const { productName, productPrice } = req.body;
 
   if (!productName || !productPrice || !req.file) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -125,62 +125,69 @@ app.post('/add', upload.single('file'), (req, res) => {
 
 
 
-app.get('/api/v1/view',async(req,res)=>{
-  const allProducts =  await productModel.find({});
-  console.log("eeeeee",allProducts);
-  if(allProducts){
-    res.status(200).json(allProducts);
+app.get('/api/v1/view', async (req, res) => {
+  try {
+    const allProducts = await productModel.find({});
+    console.log("eeeeee", allProducts);
+    
+    if (allProducts) {
+      res.status(200).json(allProducts);
+    } else {
+      res.status(500).json({ error: 'Internal Server Error - Unable to fetch products' });
+    }
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-  else{
-    res.status(500).json(allProducts)
-  }
-})
+});
 
 
 
-app.post('/api/v1/order',(req,res)=>{
-  const { address,email,mobile,items,paymentMethod } = req.body;
-  console.log("!!!!!!!",items);
+app.post('/api/v1/order', (req, res) => {
+  const { address, email, mobile, items, paymentMethod } = req.body;
+  console.log("!!!!!!!", items);
   purchaseModel.create({
-    Address:address,
-    Email:email,
-    mobile:mobile,
-    order:items,
-    PaymentMethod:paymentMethod
+    Address: address,
+    Email: email,
+    mobile: mobile,
+    order: items,
+    PaymentMethod: paymentMethod
 
-  }).then((response)=>{
-    console.log("responmseeeeeeee",res);
+  }).then((response) => {
+    console.log("responmseeeeeeee", res);
     res.status(200).json(response)
-  }).catch((error)=>{
-    console.log("errorrequest",error);
-    res.status(400).json({message:error})
+  }).catch((error) => {
+    console.log("errorrequest", error);
+    res.status(400).json({ message: error })
   })
 
 })
 
 
-app.get('/admin/api/v1',async(req,res)=>{
-  const allorders= await purchaseModel.find({})
-  console.log("eadeaaeadaea",allorders);
-  if(allorders){
+app.get('/admin/api/v1', async (req, res) => {
+  const allorders = await purchaseModel.find({})
+  console.log("eadeaaeadaea", allorders);
+  if (allorders) {
     res.status(200).json(allorders)
   }
-  else{
-    res.status(400).json({error:"somthig went wrong "})
+  else {
+    res.status(400).json({ error: "somthig went wrong " })
   }
 
 })
 
 
-
+app.get('/',validateToken,(req, res) => {
+  res.send("ennada myree nokkunnea");
+})
 
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/west')
   .then(() => console.log('Connected!'))
-  .catch((err)=>console.log("errroccured"+err))
+  .catch((err) => console.log("errroccured" + err))
 
 
-app.listen(3005,()=>{
-    console.log("server is running");
-    })
+app.listen(3005, () => {
+  console.log("server is running");
+})
