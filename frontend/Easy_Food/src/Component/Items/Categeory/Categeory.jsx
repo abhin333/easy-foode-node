@@ -5,7 +5,6 @@ import "./Categeory.css";
 
 const Categeory = (props) => {
   const { url, name, price } = props;
-  console.log("product_name",name);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

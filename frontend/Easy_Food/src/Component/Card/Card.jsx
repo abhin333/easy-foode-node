@@ -8,7 +8,6 @@ import { Rating } from "@mui/material";
 const Card = () => {
   const context = useContext(MyContext);
   const {product_name,image,price}=context.objectToPass
-  console.log("uuuuuuuu999909",image);
   const [loading,setLoading]=useState(true)
   useEffect(() => {
     if (image) {

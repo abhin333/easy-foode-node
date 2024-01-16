@@ -19,12 +19,9 @@ const [data,setData]=useState()
 
   const fetchData = async () => {
     try {
-      console.log("abhin");
       const response = await axios.get('http://localhost:3005/api/v1/view');
-      console.log("uuuuuuuuuuuu33333333###");
 
       setData(response.data);
-      console.log("uuuuuuuuuuuu");
     } catch (error) {
       alert('Error: ', error);
     }
@@ -56,12 +53,10 @@ const [data,setData]=useState()
     formDatas.append('file', formData.file);
     formDatas.append('productName', formData.productName);
     formDatas.append('productPrice', formData.productPrice);
-    console.log("sssss",formDatas);
 
     await axios.post('http://localhost:3005/add',formDatas).then((res) => {
-      console.log('Response:', res);
     }).catch((err) => {
-      console.log('Error:', err);
+      alert(err)
     });
 
   setFormData({

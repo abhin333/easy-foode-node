@@ -14,12 +14,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import burggerimg from "../../assets/image/burggerpices.png"
 import tomatto from "../../assets/image/tomatto.png"
 import axios from "axios";
+import Cookies from 'universal-cookie';
+
 
 const Login = () => {
   const navigate = useNavigate();
- 
   const [show,setShow]=useState(false)
-
+  const cookies = new Cookies(null, { path: '/' });
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -52,10 +53,11 @@ const Login = () => {
       const res= await axios.post("http://localhost:3005/login",{data:loginData})
         if(res.status==200){
           toast.success("successfuly login")
+          localStorage.setItem('isLoggedIn', res.data.accessToken);
+          cookies.set("jwt-autherization",res.data.accessToken)
           setTimeout(()=>{
             navigate('/items')
           },1000)
-          localStorage.setItem('isLoggedIn', res.data.accessToken);
         }
     }catch(error){
       toast.error(error.response.data.error)

@@ -6,7 +6,7 @@ import "./Item.css";
 import Burger from "./Burggers/Burger";
 import Categeory from "./Categeory/Categeory";
 import Cart from "../cart/Cart";
-import { logo_api, imgapi, pizza, chicken } from "../../api";
+import { logo_api} from "../../api";
 import { useNavigate, } from "react-router-dom";
 import { motion } from "framer-motion";
 import Chatbot from "react-chatbot-kit";
@@ -66,14 +66,11 @@ const Item = () => {
 
 
   const dataFetch = async () => {
-      console.log("abhin");
       await axios.get('http://localhost:3005/api/v1/view').then((response)=>{
-        console.log("uuuuuuuuuuuu33333333###",response);
         setData(response.data);
-        console.log("uuuuuuuuuuuus", data); 
       }).catch((error)=>{
-        alert("errorsssssssss",error);
-        console.log("eeeeee",error);
+        alert(error.response.data.error);
+        console.log(error);
       })
      
     
