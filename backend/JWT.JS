@@ -9,21 +9,22 @@ const createToken = (user) => {
 };
 
 const validateToken=(req,res,next)=>{
-    const accessToken=req.cookies["access-token"];
+    console.log("@@@@@@@@@@@@@",req.headers.authorization);
+    const accessToken=req.headers.authorization;
 
     if(!accessToken){
         return res.status(400).json({error:"user not Authorised"})
     }
 
     try{
-        const validToken=verify(accessToken,"jwtsecreteKey")
+        const validToken= verify(accessToken,"jwtsecreteKey")
         if(validToken){
             req.authenticated =true;
-            return next()
+            return next();
         }
     }catch(err){
         res.status(400).json({error:err})
     }
-}
+};
 
 module.exports={createToken,validateToken};

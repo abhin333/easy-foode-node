@@ -58,7 +58,7 @@ app.post('/signup', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body.data  ;
+  const { email, password } = req.body.data ;
   console.log("emaik",email,"pass",password);
   try {
     const user = await userModel.findOne({ email });
@@ -125,13 +125,13 @@ app.post('/add', upload.single('file'), (req, res) => {
 
 
 
-app.get('/api/v1/view', async (req, res) => {
+app.get('/api/v1/view',validateToken,async (req, res) => {
   try {
     const allProducts = await productModel.find({});
     console.log("eeeeee", allProducts);
     
     if (allProducts) {
-      res.status(200).json(allProducts);
+      res.status(200).json(allProducts);  
     } else {
       res.status(500).json({ error: 'Internal Server Error - Unable to fetch products' });
     }
