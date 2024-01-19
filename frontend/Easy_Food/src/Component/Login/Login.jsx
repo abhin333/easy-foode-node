@@ -53,8 +53,10 @@ const Login = () => {
       const res= await axios.post("http://localhost:3005/login",{data:loginData})
         if(res.status==200){
           toast.success("successfuly login")
-          localStorage.setItem('isLoggedIn', res.data.accessToken);
-          cookies.set("jwt-autherization",res.data.accessToken)
+          localStorage.setItem('access-token', res.data.accessToken);
+          cookies.set("access-token",res.data.accessToken);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
+
           setTimeout(()=>{
             navigate('/items')
           },1000)

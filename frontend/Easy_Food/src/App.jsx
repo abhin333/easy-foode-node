@@ -17,12 +17,22 @@ import PageNot from "./Component/Pages/404/PageNot";
 import Success from "./Component/Pages/success/Success";
 import Hello from "./Component/Hello"
 import AdminPanel from "./Component/Adminpanel/Adminpanel";
+
 const App = () => {
   
   const navigate = useNavigate();
   const [users, setUsers] = useState(false);
- 
-  
+  const token=localStorage.getItem('access-token')
+
+  useEffect(()=>{
+    if(token){
+      setUsers(true);
+    }else{
+      setUsers(false);
+    }
+  },[token])
+  console.log('ssss',token);
+  console.log("www",users);
   return (
     <div>
       <Routes>
@@ -30,7 +40,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={ <LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/items" element={<Purchase />} />
+        <Route path="/items" element={users ? <Purchase />:<Navigate to='/login'/> } />
         <Route path="/view" element={<Cart />} />
         <Route path="/cart" element={<ViewCart/>}/>
         <Route path="/payment" element={<PaymentPage/>}/>

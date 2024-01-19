@@ -53,7 +53,7 @@ const Item = () => {
   const [name, setName] = useState("Burger");
   // const [hover, setHover] = useState(false);
   const [index2, setIndex2] = useState(0);
-
+  const token = localStorage.getItem('access-token');
 
 
   useEffect(() => {
@@ -64,18 +64,19 @@ const Item = () => {
     filtreData()
    },[data])
 
-
-  const dataFetch = async () => {
-      await axios.get('http://localhost:3005/api/v1/view').then((response)=>{
-        setData(response.data);
-      }).catch((error)=>{
-        alert(error.response.data.error);
-        console.log(error);
-      })
-     
-    
+   const dataFetch = async () => {
+    try {
+      const response = await axios.get('http://localhost:3005/api/v1/view',{
+        headers:{
+          Authorization:token
+        },
+      });
+      setData(response.data);
+    } catch (error) {
+      alert(error.response.data.error);
+    }
   };
-
+  
 
 const filtreData=()=>{
   const filteredData = data.filter((item) => item.product_name === 'Burger');
