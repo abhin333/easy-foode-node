@@ -3,10 +3,10 @@ import ShortTextIcon from "@mui/icons-material/ShortText";
 import { Avatar, Radio, TextareaAutosize, TextField } from "@mui/material";
 import "./Payment.css";
 import { motion } from "framer-motion";
-import { Email } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import baseurl from "../../env";
 
 const Payment = ({ children }) => {
   const navigate = useNavigate();
@@ -55,15 +55,17 @@ const Payment = ({ children }) => {
 
   const clickHandler = async (data) => {
     try {
-      const response = await axios.post('http://localhost:3005/api/v1/order', data).then((res) => {
-     if(res.data.paymentMethod==='Gpay'){
-       displayRazorpay()
-     }
-     else{
-      navigate('/success')
-      localStorage.clear('cartItems')
-     }
-    })
+      const response = await axios.post(`${baseurl}api/v1/order`, data)
+      if (response.status ==200) {
+        if(response?.data?.PaymentMethod ==="Gpay"){
+          displayRazorpay();
+        }else
+        {
+        localStorage.removeItem("cartItems");
+        navigate('/success');
+        }
+    }
+
     } catch (error) {
       console.error("Error:", error);
       alert(error.message);
@@ -91,11 +93,9 @@ const Payment = ({ children }) => {
       // order_id: data.order_id,
       image:
         "https://images.crunchbase.com/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/nakelakvvkgahedukgxv",
-      handler: function (response) {
-        alert(response.razorpay_payment_id);
-
-        localStorage.removeItem("cartItems");
+      handler: async function (response) {
         navigate("/success");
+        localStorage.removeItem("cartItems")
       },
       prefill: {
         name: "abhin",

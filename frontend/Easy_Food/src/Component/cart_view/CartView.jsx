@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import ShortTextIcon from "@mui/icons-material/ShortText";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import baseurl from "../../env";
 
 const CartView = (props) => {
   const {id,product_name}=props;
@@ -95,13 +96,12 @@ const calculation=(dataList2)=>{
           </div>
               <div className="box3">
         {data.map((event, index) => {
-        console.log("@@@@@@@@@",event);
           return (
             <>
                 <div className="item_view3">
                   <p className="name3" >{event.Cart.item.name}</p>
                   <div className="images3">
-                    <img className="image3" src={`http://localhost:3005/Images/${event.Cart.item.url}`} alt="img" />
+                    <img className="image3" src={`${baseurl}Images/${event.Cart.item.url}`} alt="img" />
                   </div>
                   
                   <div className="count_icon3">

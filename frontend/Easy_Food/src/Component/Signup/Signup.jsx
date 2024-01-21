@@ -14,6 +14,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import burgger from "../../assets/image/burggerpices.png"
 import tomatto from "../../assets/image/tomatto.png"
 import axios from "axios";
+import baseurl from "../../env";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const passwordUnShows=()=>{
       return;
     }
     try{ 
-      await axios.post('http://localhost:3005/signup',{data:formData}).then((res)=>{
+      await axios.post(`${baseurl}signup`,{data:formData}).then((res)=>{
         console.log("ressspp",res);
         if(res.status==200){
           toast.success("successfully registred")

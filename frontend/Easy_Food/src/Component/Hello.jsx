@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import baseurl from '../env';
 
 
 
@@ -19,7 +20,7 @@ const [data,setData]=useState()
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3005/api/v1/view');
+      const response = await axios.get(`${baseurl}api/v1/view`);
 
       setData(response.data);
     } catch (error) {
@@ -54,7 +55,7 @@ const [data,setData]=useState()
     formDatas.append('productName', formData.productName);
     formDatas.append('productPrice', formData.productPrice);
 
-    await axios.post('http://localhost:3005/add',formDatas).then((res) => {
+    await axios.post(`${baseurl}add`,formDatas).then((res) => {
     }).catch((err) => {
       alert(err)
     });
@@ -108,7 +109,7 @@ const [data,setData]=useState()
             
             <h4>{item.price}</h4>
             <h4>{item.product_name}</h4>
-           <img src={`http://localhost:3005/Images/${item.image}`} alt="image" />
+           <img src={`${baseurl}Images/${item.image}`} alt="image" />
           
           </div>
 

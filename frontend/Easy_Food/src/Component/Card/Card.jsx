@@ -4,6 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { MyContext } from "../Pages/cartPage/Cart";
 import { Blurhash } from "react-blurhash";
 import { Rating } from "@mui/material";
+import baseurl from "../../env";
 
 const Card = () => {
   const context = useContext(MyContext);
@@ -39,7 +40,7 @@ const Card = () => {
                />
                </div>
           ):(
-          <img className="img-q" src={`http://localhost:3005/Images/${image}`} alt="img" loading="lazy"  />
+          <img className="img-q" src={`${baseurl}Images/${image}`} alt="img" loading="lazy"  />
           )}
         
         </div>

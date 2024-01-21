@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Rating } from "@mui/material";
 import { Blurhash } from "react-blurhash";
 import "./Categeory.css";
+import baseurl from "../../../env";
 
 const Categeory = (props) => {
   const { url, name, price } = props;
@@ -36,7 +37,7 @@ const Categeory = (props) => {
               />
             </div>
           ) : (
-            <img className="imgsss" src={`http://localhost:3005/Images/${url}`} alt={name} loading="lazy"/>
+            <img className="imgsss" src={`${baseurl}Images/${url}`} alt={name} loading="lazy"/>
           )}
         </div>
         <div className="name">

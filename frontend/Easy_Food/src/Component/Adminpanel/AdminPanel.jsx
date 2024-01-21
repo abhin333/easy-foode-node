@@ -3,6 +3,7 @@ import axios from 'axios';
 import './AdminPanel.css';
 import { FaDownload } from "react-icons/fa";
 import generatePDF from 'react-to-pdf';
+import baseurl from '../../env';
 
 const AdminPanel = () => {
   const targetRef = useRef();
@@ -11,7 +12,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3005/admin/api/v1');
+        const response = await axios.get(`${baseurl}admin/api/v1`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -22,7 +23,7 @@ const AdminPanel = () => {
   }, []);
 
   const download = () => {
-    generatePDF(targetRef, { filename: 'page.pdf' });
+    generatePDF(targetRef, { filename: 'order.pdf' });
   };
 
   return (

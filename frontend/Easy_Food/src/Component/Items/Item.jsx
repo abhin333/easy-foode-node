@@ -15,6 +15,7 @@ import config from "../../config";
 import MessageParser from "../../MessageParser";
 import ActionProvider from "../../ActionProvider";
 import axios from "axios"
+import baseurl from "../../env";
 
 
 const Item = () => {
@@ -66,7 +67,7 @@ const Item = () => {
 
    const dataFetch = async () => {
     try {
-      const response = await axios.get('http://localhost:3005/api/v1/view',{
+      const response = await axios.get(`${baseurl}api/v1/view`,{
         headers:{
           Authorization:token
         },

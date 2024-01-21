@@ -15,6 +15,7 @@ import burggerimg from "../../assets/image/burggerpices.png"
 import tomatto from "../../assets/image/tomatto.png"
 import axios from "axios";
 import Cookies from 'universal-cookie';
+import baseurl from "../../env";
 
 
 const Login = () => {
@@ -50,7 +51,7 @@ const Login = () => {
     }
     e.preventDefault();
     try{
-      const res= await axios.post("http://localhost:3005/login",{data:loginData})
+      const res= await axios.post(`${baseurl}login`,{data:loginData})
         if(res.status==200){
           toast.success("successfuly login")
           localStorage.setItem('access-token', res.data.accessToken);
