@@ -64,7 +64,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon service.js"
+    "dev": "nodemon service.js",
+    "build":"npm i"
+    
+    
   },
   "keywords": [],
   "author": "",
