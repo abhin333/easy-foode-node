@@ -183,7 +183,7 @@ app.get('/',validateToken,(req, res) => {
 
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/west')
+mongoose.connect('mongodb+srv://cluster0.ttt3foa.mongodb.net/')
   .then(() => console.log('Connected!'))
   .catch((err) => console.log("errroccured" + err))
 
@@ -191,3 +191,5 @@ mongoose.connect('mongodb://127.0.0.1:27017/west')
 app.listen(3005, () => {
   console.log("server is running");
 })
+
+//mongodb://127.0.0.1:27017/west
