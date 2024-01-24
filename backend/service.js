@@ -74,14 +74,11 @@ app.post('/login', async (req, res) => {
     }
 
     const accessToken = createToken(user);
-    console.log("accesstoken", accessToken);
 
     res.cookie("access-token", accessToken, { maxAge: 60 * 60 * 20 * 30 * 1000 });
     res.status(200).json({ accessToken, message: 'Login successful' });
-console.log("ddddrdrdrd", validateToken);
 
   } catch (error) {
-    console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -177,19 +174,18 @@ app.get('/admin/api/v1', async (req, res) => {
 })
 
 
-app.get('/',validateToken,(req, res) => {
+app.get('/',(req, res) => {
   res.send("ennada myree nokkunnea");
 })
 
 
-
-mongoose.connect('mongodb+srv://cluster0.ttt3foa.mongodb.net/')
-  .then(() => console.log('Connected!'))
-  .catch((err) => console.log("errroccured" + err))
+mongoose.connect("mongodb+srv://abhinpradeepan123:Abhin13052001@cluster0.ttt3foa.mongodb.net/west")
+  .then(() => console.log('Connected to MongoDB!'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 
 app.listen(3005, () => {
   console.log("server is running");
 })
-
-//mongodb://127.0.0.1:27017/west
+// mongodb+srv://cluster0.ttt3foa.mongodb.net/
+// //mongodb://127.0.0.1:27017/west
