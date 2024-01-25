@@ -46,14 +46,29 @@
 
 
 /* Responsive Styles for Mobile Devices */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   .order-table th,
   .order-table td {
-    padding: 8px; /* Adjust padding for smaller screens */
+    padding:1px; 
+    width: 10px;/* Adjust padding for smaller screens */
   }
 
-  .admin-panel-title {
-    font-size: 1.5em; /* Adjust title font size for smaller screens */
+  .admin-panel-title{
+    font-size: 1em; /* Adjust title font size for smaller screens */
+  }
+  .order-table td{
+    font-size: 10px;
+   
+     }
+  .order-table th{
+    font-size:9px;
+  }
+
+  .order-table th.customer-email,
+  .order-table td.customer-email,
+  .order-table th.order-id,
+  .order-table td.order-id{
+    display: none;
   }
 
 }
