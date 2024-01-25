@@ -20,14 +20,21 @@ import AdminPanel from "./Component/Adminpanel/Adminpanel";
 import ProtectRoute from "./ProtectRoute";
 
 const App = () => {
-
+  const token =localStorage.getItem('access-token');
+  const [state,setState]=useState(false)
+  useEffect(()=>{
+    if(token)
+      setState(true);
+    else
+      setState(false);
+},[token])
 
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={state ? <Navigate to='/items'/> : <LoginPage />} />
+        <Route path="/signup" element={state ? <Navigate to='/items'/> : <SignupPage />} />
 
         {/* Protected Route */}
         <Route
