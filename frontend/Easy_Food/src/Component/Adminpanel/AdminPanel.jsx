@@ -37,7 +37,7 @@ const AdminPanel = () => {
         <table className="order-table">
           <thead>
             <tr>
-              <th className="order-id">SN</th>
+              <th className="order-id1">SN</th>
               <th className="order-id">Order ID</th>
               <th className="customer-email">Customer Email</th>
               <th className="customer-address">Customer Address</th>

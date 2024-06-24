@@ -15,6 +15,17 @@
   height: 40px;
 }
 .google {
-  width: 40px;
-  height: 40px;
+  position: relative;
+  cursor: pointer;  
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  height: 52px;
+  width: 100%;
+  text-decoration: none;
+  box-shadow: rgb(232, 236, 235) 0px 0px 0px 3px;
+  
+  border-color: rgb(136, 147, 151);
 }
+
