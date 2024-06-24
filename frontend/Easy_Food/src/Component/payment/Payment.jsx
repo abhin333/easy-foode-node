@@ -67,7 +67,6 @@ const Payment = ({ children }) => {
     }
 
     } catch (error) {
-      console.error("Error:", error);
       alert(error.message);
     }
   };
