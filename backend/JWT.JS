@@ -2,7 +2,7 @@ var { sign, verify } = require("jsonwebtoken");
 
 const createToken = (user) => {
   const accessToken = sign(
-    { username: user.username, id: user.id },
+    { username: user.username,id: user.id },
     "jwtsecreteKey"
   );
   return accessToken;
@@ -11,13 +11,15 @@ const createToken = (user) => {
 const validateToken=(req,res,next)=>{
     console.log("@@@@@@@@@@@@@",req.headers.authorization);
     const accessToken=req.headers.authorization;
+    console.log("ezzzzzzzzz",accessToken);
 
-    if(!accessToken){
-        return res.status(400).json({error:"user not Authorised"})
-    }
+    // if(!accessToken){
+    //     return res.status(400).json({error:"user not Authorised"})
+    // }
 
     try{
         const validToken= verify(accessToken,"jwtsecreteKey")
+        console.log("valid token",validToken);
         if(validToken){
             req.authenticated =true;
             return next();

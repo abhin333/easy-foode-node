@@ -19,8 +19,21 @@ var cookieParser = require('cookie-parser')
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
+const session = require('express-session');
+const passport = require('passport');
+require('./passport');
 
 
+
+app.use(session({
+  secret: 'vytft%$$#^dhuyiaysuyfw4wfgsu',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize()); 
+app.use(passport.session()); 
+    
 
 const { createToken, validateToken } = require('./JWT.JS')
 
@@ -59,7 +72,7 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body.data ;
-  console.log("emaik",email,"pass",password);
+  console.log("email",email,"pass",password);
   try {
     const user = await userModel.findOne({ email });
 
@@ -119,10 +132,55 @@ app.post('/add', upload.single('file'), (req, res) => {
     });
 });
 
+// GOOGGLE AUTH API..........................
+
+app.get('/auth' , passport.authenticate('google', { scope: 
+    [ 'email', 'profile' ] 
+})); 
+  
+// Auth Callback 
+app.get( '/auth/callback', 
+    passport.authenticate( 'google', { 
+        successRedirect: '/auth/callback/success', 
+        failureRedirect: '/auth/callback/failure'
+})); 
+  
+// Success  
+app.get('/auth/callback/success' , (req , res) => { 
+    if(!req.user) 
+        res.redirect('/auth/callback/failure'); 
+      console.log("userrrrrrrr",req.user);
+      const {id}=req.user;
+      const {name}=req.user._json;
+      const mergedUser = {
+        id,
+        username: name
+      };
+      console.log("sssss",mergedUser);
+      var token=createToken(mergedUser);
+      res.cookie('access_Token',token);
+      res.redirect('http://localhost:5173/items'); 
+
+}); 
+  
+// failure 
+app.get('/auth/callback/failure' , (req , res) => { 
+    res.send("Error"); 
+}) 
+
+
+// Logout route
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('http//:localhost:5173/signin');  
+});
+
+
 
 
 
 app.get('/api/v1/view',validateToken,async (req, res) => {
+  console.log("ppppppppppppppppp");
   try {
     const allProducts = await productModel.find({});
     console.log("eeeeee", allProducts);
@@ -183,6 +241,7 @@ mongoose.connect("mongodb+srv://abhinpradeepan123:Abhin13052001@cluster0.ttt3foa
   .then(() => console.log('Connected to MongoDB!'))
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
+  
 
 app.listen(3005, () => {
   console.log("server is running");
