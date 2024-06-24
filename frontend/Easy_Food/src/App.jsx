@@ -26,7 +26,6 @@ import Cookies from 'js-cookie';
 
 const App = () => {
   const token = localStorage.getItem('access-token') || Cookies.get('access_Token');
-
   const [state, setState] = useState(false)
 
   useEffect(() => {
