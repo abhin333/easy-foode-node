@@ -36,7 +36,7 @@ const Item = () => {
   const [name, setName] = useState("Burger");
   const [loder, setLoder] = useState(false);
   const [index2, setIndex2] = useState(0);
-  const token = localStorage.getItem('access-token')|| Cookies.get('access_Token');
+  const token = localStorage.getItem('access-token') || Cookies.get('access_Token');
 
 
   useEffect(() => {
@@ -50,9 +50,19 @@ const Item = () => {
   const logOut = () => {
     var userResponse = confirm("Do you want to Logout ?");
     if (userResponse) {
-      localStorage.clear();
-      navigate("/login");
-      window.location.reload();
+
+      axios.get(`${baseurl}logout`).then((res) => {
+        if(res.status==200){
+          localStorage.clear();
+          Cookies.remove('access_Token')
+          window.location.reload();
+        }
+        else{
+          alert("something went wrong")
+        }
+
+      })
+
     }
   };
 
@@ -97,7 +107,7 @@ const Item = () => {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  const categeoryHandle = (name) => {};
+  const categeoryHandle = (name) => { };
   const clcikHandler = (event, index) => {
     navigate("/view", { state: { event } });
   };
@@ -127,7 +137,7 @@ const Item = () => {
               sizes="12px"
               sx={{ fontSize: "12px" }}
               alt="Remy Sharp"
-              // src="/static/images/avatar/1.jpg"
+            // src="/static/images/avatar/1.jpg"
             ></Avatar>
           </div>
         </div>
@@ -173,83 +183,83 @@ const Item = () => {
           <SkeletonTheme baseColor="#d3c8c8" highlightColor="#444">
             {name === "Burger"
               ? image.map((event, index) => {
-                  const url = event.image;
-                  const name = event.product_name;
-                  const price = event.price;
-                  return (
-                    <>
-                      <div
-                        key={event.id}
-                        onClick={() => clcikHandler(event, index)}
-                      >
-                        <Categeory url={url} name={name} price={price} />
-                      </div>
-                    </>
-                  );
-                })
+                const url = event.image;
+                const name = event.product_name;
+                const price = event.price;
+                return (
+                  <>
+                    <div
+                      key={event.id}
+                      onClick={() => clcikHandler(event, index)}
+                    >
+                      <Categeory url={url} name={name} price={price} />
+                    </div>
+                  </>
+                );
+              })
               : ""}
-            { image?.length <=0 || chickenLogo ?.length <=0 || pizzaLogo ?.length <=0 ? <>
+            {image?.length <= 0 || chickenLogo?.length <= 0 || pizzaLogo?.length <= 0 ? <>
               <div
-              style={{
-                border: "1px solid #ccc",
-                borderRadius:12,
-                display:'block',
-                lineHeight: 2,
-                padding: "1rem",
-                marginTop: "0.5rem",
-                width: 120,
-                height: 170,
-              }}
-            >
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: 12,
+                  display: 'block',
+                  lineHeight: 2,
+                  padding: "1rem",
+                  marginTop: "0.5rem",
+                  width: 120,
+                  height: 170,
+                }}
+              >
                 <Skeleton count={4} />
-            </div>
-            <div
-              style={{
-                border: "1px solid #ccc",
-                display:'block',
-                borderRadius:12,
-                lineHeight: 2,
-                padding: "1rem",
-                marginTop: "0.5rem",
-                width: 120,
-                height: 170,
-              }}
-            >
+              </div>
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  display: 'block',
+                  borderRadius: 12,
+                  lineHeight: 2,
+                  padding: "1rem",
+                  marginTop: "0.5rem",
+                  width: 120,
+                  height: 170,
+                }}
+              >
                 <Skeleton count={4} />
-            </div>
-            <div
-              style={{
-                border: "1px solid #ccc",
-                display:'block',
-                borderRadius:12,
-                lineHeight: 2,
-                padding: "1rem",
-                marginTop: "0.5rem",
-                width: 120,
-                height: 170,
-              }}
-            >
+              </div>
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  display: 'block',
+                  borderRadius: 12,
+                  lineHeight: 2,
+                  padding: "1rem",
+                  marginTop: "0.5rem",
+                  width: 120,
+                  height: 170,
+                }}
+              >
                 <Skeleton count={4} />
-            </div>
-            <div
-              style={{
-                border: "1px solid #ccc",
-                display:'block',
-                borderRadius:12,
-                lineHeight: 2,
-                padding: "1rem",
-                marginTop: "0.5rem",
-                width: 120,
-                height: 170,
-              }}
-            >
+              </div>
+              <div
+                style={{
+                  border: "1px solid #ccc",
+                  display: 'block',
+                  borderRadius: 12,
+                  lineHeight: 2,
+                  padding: "1rem",
+                  marginTop: "0.5rem",
+                  width: 120,
+                  height: 170,
+                }}
+              >
                 <Skeleton count={4} />
-            </div>
-            
-            </>   :('')}
-           
-          {name === "Chicken"
-            ? chickenLogo.map((event, index) => {
+              </div>
+
+            </> : ('')}
+
+            {name === "Chicken"
+              ? chickenLogo.map((event, index) => {
                 const url = event.image;
                 const name = event.product_name;
                 const price = event.price;
@@ -260,12 +270,12 @@ const Item = () => {
                   </div>
                 );
               })
-            : ""}
-        
+              : ""}
 
 
-          {name === "Pizza"
-            ? pizzaLogo.map((event, index) => {
+
+            {name === "Pizza"
+              ? pizzaLogo.map((event, index) => {
                 const url = event.image;
                 const name = event.product_name;
                 const price = event.price;
@@ -278,8 +288,8 @@ const Item = () => {
                   </div>
                 );
               })
-            : ""}
-             
+              : ""}
+
           </SkeletonTheme>
 
         </motion.div>

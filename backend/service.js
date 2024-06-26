@@ -22,7 +22,7 @@ app.use(express.static('public'))
 const session = require('express-session');
 const passport = require('passport');
 require('./passport');
-
+const googleModel = require('./Model/google.model');
 
 
 app.use(session({
@@ -146,7 +146,7 @@ app.get( '/auth/callback',
 })); 
   
 // Success  
-app.get('/auth/callback/success' , (req , res) => { 
+app.get('/auth/callback/success' , async(req , res) => { 
     if(!req.user) 
         res.redirect('/auth/callback/failure'); 
       console.log("userrrrrrrr",req.user);
@@ -156,11 +156,17 @@ app.get('/auth/callback/success' , (req , res) => {
         id,
         username: name
       };
-      console.log("sssss",mergedUser);
+      const googleuser = await googleModel.findOne({ email: req.user._json.email });
+      console.log("email",googleuser);
+      if (!googleuser) {
+        const newuser = new googleModel({ username: name, email: req.user._json.email });
+        await newuser.save();
+        console.log("newuser",newuser);
+      }
       var token=createToken(mergedUser);
       res.cookie('access_Token',token);
-      res.redirect('http://localhost:5173/items'); 
-
+      res.redirect('https://easy-fastfood.netlify.app/items'); 
+      
 }); 
   
 // failure 
@@ -171,10 +177,22 @@ app.get('/auth/callback/failure' , (req , res) => {
 
 // Logout route
 app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('http//:localhost:5173/signin');  
+  console.log("helloooo");
+  req.logout((err) => {
+    if (err) {
+        console.error('Error logging out:', err);
+        return res.status(500).send('Error logging out');
+    }
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.status(500).send('Error logging out');
+        }
+        console.log("Session destroyed successfully");
+        res.status(200).send("suuccessfuly logout");
+    });
 });
-
+});
 
 
 
