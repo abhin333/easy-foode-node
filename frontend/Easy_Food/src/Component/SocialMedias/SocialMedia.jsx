@@ -3,11 +3,12 @@ import './SocialMedia.css'
 import instagram from "../../assets/logo/instagram.png"
 import facebook from "../../assets/logo/facebook.png"
 import google from "../../assets/logo/search.png"
+import baseurl from '../../env'
 
 
 const SocialMedia = () => {
 const google =()=>{
-  window.open('http://localhost:3005/auth', "_self");
+  window.open(`${baseurl}auth`, "_self");
 
 }
 

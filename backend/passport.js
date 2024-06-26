@@ -11,7 +11,7 @@ if(!process.env.CLIENT_ID || !process.env.CLIENT_SECRET){
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "http://localhost:3005/auth/callback",
+  callbackURL: "https://easy-food-99yh.onrender.com/auth/callback",
   scope: ['profile', 'email']
 },
 (accessToken, refreshToken, profile, done) => {
