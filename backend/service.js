@@ -163,7 +163,7 @@ app.get('/auth/callback/success' , async(req , res) => {
         await newuser.save();
         console.log("newuser",newuser);
       }
-      var token=createToken(mergedUser);
+      var token=await createToken(mergedUser);
       res.cookie('access_Token',token);
       res.redirect('https://easy-fastfood.netlify.app/items'); 
       
