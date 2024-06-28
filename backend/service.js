@@ -32,9 +32,9 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use(passport.initialize()); 
-app.use(passport.session()); 
-    
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 const { createToken, validateToken } = require('./JWT.JS')
 
@@ -72,8 +72,8 @@ app.post('/signup', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body.data ;
-  console.log("email",email,"pass",password);
+  const { email, password } = req.body.data;
+  console.log("email", email, "pass", password);
   try {
     const user = await userModel.findOne({ email });
 
@@ -135,50 +135,51 @@ app.post('/add', upload.single('file'), (req, res) => {
 
 // GOOGGLE AUTH API..........................
 
-app.get('/auth' , passport.authenticate('google', { scope: 
-    [ 'email', 'profile' ] 
-})); 
-  
+app.get('/auth', passport.authenticate('google', {
+  scope:
+    ['email', 'profile']
+}));
+
 // Auth Callback 
-app.get( '/auth/callback', 
-    passport.authenticate( 'google', { 
-        successRedirect: '/auth/callback/success', 
-        failureRedirect: '/auth/callback/failure'
-})); 
-  
+app.get('/auth/callback',
+  passport.authenticate('google', {
+    successRedirect: '/auth/callback/success',
+    failureRedirect: '/auth/callback/failure'
+  }));
+
 // Success  
-app.get('/auth/callback/success' , async(req , res) => { 
-    if(!req.user) 
-        res.redirect('/auth/callback/failure'); 
-      console.log("userrrrrrrr",req.user);
-      const {id}=req.user;
-      const {name}=req.user._json;
-      const mergedUser = {
-        id,
-        username: name
-      };
-      const googleuser = await googleModel.findOne({ email: req.user._json.email });
-      console.log("email",googleuser);
-      if (!googleuser) {
-        const newuser = new googleModel({ username: name, email: req.user._json.email });
-        await newuser.save();
-        console.log("newuser",newuser);
-      }
-      var token=await createToken(mergedUser);
-      console.log("token",token,
-        {
-          httpOnly: true,
-          secure: true 
-        });
-      res.cookie('access_Token',token);
-      res.redirect('https://easy-fastfood.netlify.app/items'); 
-      
-}); 
-  
+app.get('/auth/callback/success', async (req, res) => {
+  if (!req.user)
+    res.redirect('/auth/callback/failure');
+  console.log("userrrrrrrr", req.user);
+  const { id } = req.user;
+  const { name } = req.user._json;
+  const mergedUser = {
+    id,
+    username: name
+  };
+  const googleuser = await googleModel.findOne({ email: req.user._json.email });
+  console.log("email", googleuser);
+  if (!googleuser) {
+    const newuser = new googleModel({ username: name, email: req.user._json.email });
+    await newuser.save();
+    console.log("newuser", newuser);
+  }
+  var token = await createToken(mergedUser);
+  console.log("token", token,
+    {
+      httpOnly: true,
+      secure: true
+    });
+  res.cookie('access_Token', token);
+  res.redirect('https://easy-fastfood.netlify.app/items');
+
+});
+
 // failure 
-app.get('/auth/callback/failure' , (req , res) => { 
-    res.send("Error"); 
-}) 
+app.get('/auth/callback/failure', (req, res) => {
+  res.send("Error");
+})
 
 
 // Logout route
@@ -186,31 +187,31 @@ app.get('/logout', (req, res) => {
   console.log("helloooo");
   req.logout((err) => {
     if (err) {
-        console.error('Error logging out:', err);
-        return res.status(500).send('Error logging out');
+      console.error('Error logging out:', err);
+      return res.status(500).send('Error logging out');
     }
     req.session.destroy((err) => {
-        if (err) {
-            console.error('Error destroying session:', err);
-            return res.status(500).send('Error logging out');
-        }
-        console.log("Session destroyed successfully");
-        res.status(200).send("suuccessfuly logout");
+      if (err) {
+        console.error('Error destroying session:', err);
+        return res.status(500).send('Error logging out');
+      }
+      console.log("Session destroyed successfully");
+      res.status(200).send("suuccessfuly logout");
     });
+  });
 });
-});
 
 
 
 
-app.get('/api/v1/view',validateToken,async (req, res) => {
+app.get('/api/v1/view', validateToken, async (req, res) => {
   console.log("ppppppppppppppppp");
   try {
     const allProducts = await productModel.find({});
     console.log("eeeeee", allProducts);
-    
+
     if (allProducts) {
-      res.status(200).json(allProducts);  
+      res.status(200).json(allProducts);
     } else {
       res.status(500).json({ error: 'Internal Server Error - Unable to fetch products' });
     }
@@ -256,7 +257,7 @@ app.get('/admin/api/v1', async (req, res) => {
 })
 
 
-app.get('/',(req, res) => {
+app.get('/', (req, res) => {
   res.send("ennada myree nokkunnea");
 })
 
@@ -265,7 +266,7 @@ mongoose.connect("mongodb+srv://abhinpradeepan123:Abhin13052001@cluster0.ttt3foa
   .then(() => console.log('Connected to MongoDB!'))
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-  
+
 
 app.listen(3005, () => {
   console.log("server is running");
