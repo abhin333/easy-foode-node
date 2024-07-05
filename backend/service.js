@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors');
 app.use(express.json())
 app.use(cors({
-  origin: 'https://easy-food-99yh.onrender.com' // Replace with your frontend URL
+  origin: 'https://easy-fastfood.netlify.app/' // Replace with your frontend URL
 }));
 
 const multer = require('multer');
