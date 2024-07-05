@@ -37,7 +37,7 @@ const Item = () => {
   const [loder, setLoder] = useState(false);
   const [index2, setIndex2] = useState(0);
   const token = localStorage.getItem('access-token') || Cookies.get('access_Token');
-
+    
 
   useEffect(() => {
     dataFetch();
@@ -50,11 +50,11 @@ const Item = () => {
   const logOut = () => {
     var userResponse = confirm("Do you want to Logout ?");
     if (userResponse) {
-
+      localStorage.clear();
+      Cookies.remove('access-token');
       axios.get(`${baseurl}logout`).then((res) => {
         if(res.status==200){
-          localStorage.clear();
-          Cookies.remove('access_Token')
+          Cookies.remove('access_Token') ;
           window.location.reload();
         }
         else{
