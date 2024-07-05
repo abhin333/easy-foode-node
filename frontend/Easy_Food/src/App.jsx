@@ -38,6 +38,11 @@ const App = () => {
   }, [token])
 
 
+  useEffect(()=>{
+   console.log("app run ayiiiiii");
+  },[])
+
+
   return (
     <div>
       <Routes>

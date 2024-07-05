@@ -3,8 +3,7 @@ const app = express()
 const cors = require('cors');
 app.use(express.json())
 app.use(cors({
-  origin: 'https://easy-fastfood.netlify.app', // Replace with your frontend URL
-  credentials: true
+  origin: 'https://easy-food-99yh.onrender.com' // Replace with your frontend URL
 }));
 
 const multer = require('multer');
@@ -166,12 +165,16 @@ app.get('/auth/callback/success', async (req, res) => {
     console.log("newuser", newuser);
   }
   var token = await createToken(mergedUser);
+ 
   console.log("token", token,
     {
       httpOnly: true,
-      secure: true
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
+      domain: 'https://easy-fastfood.netlify.app/'
     });
   res.cookie('access_Token', token);
+  const encodedToken = encodeURIComponent(token);
   res.redirect('https://easy-fastfood.netlify.app/items');
 
 });
