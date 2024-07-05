@@ -165,17 +165,13 @@ app.get('/auth/callback/success', async (req, res) => {
     console.log("newuser", newuser);
   }
   var token = await createToken(mergedUser);
- 
-  console.log("token", token,
-    {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'None',
-      domain: 'https://easy-fastfood.netlify.app/'
-    });
-  res.cookie('access_Token', token);
-  const encodedToken = encodeURIComponent(token);
-  res.redirect('https://easy-fastfood.netlify.app/items');
+  res.cookie('access_Token', token,{
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None',
+    domain: 'https://easy-fastfood.netlify.app/'
+  });
+  res.redirect('https://easy-fastfood.netlify.app/');
 
 });
 
