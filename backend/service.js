@@ -167,8 +167,8 @@ app.get('/auth/callback/success', async (req, res) => {
     console.log("newuser", newuser);
   }
   var token = await createToken(mergedUser);
-  res.cookie('access_Token', token, { httpOnly: true, secure: true , sameSite: 'None'});
-  res.redirect('http://localhost:5173/items');
+  res.cookie('access_Token', token, { httpOnly: true, secure: true , sameSite: 'None',path: '/' });
+  res.redirect('https://easy-fastfood.netlify.app/items');
   }
   catch (error) {
     console.error("Error in auth callback success route:", error);
