@@ -148,6 +148,7 @@ app.get('/auth/callback',
 
 // Success  
 app.get('/auth/callback/success', async (req, res) => {
+  try {
   if (!req.user)
     res.redirect('/auth/callback/failure');
   console.log("userrrrrrrr", req.user);
@@ -165,8 +166,13 @@ app.get('/auth/callback/success', async (req, res) => {
     console.log("newuser", newuser);
   }
   var token = await createToken(mergedUser);
-  res.cookie('access_Token', token);
+  res.cookie('access_Token', token, { httpOnly: true, secure: true });
   res.redirect('http://localhost:5173/items');
+  }
+  catch (error) {
+    console.error("Error in auth callback success route:", error);
+    res.status(500).send('Internal Server Error');
+  }
 
 });
 
