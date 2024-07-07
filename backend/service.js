@@ -3,7 +3,8 @@ const app = express()
 const cors = require('cors');
 app.use(express.json())
 app.use(cors({
-  origin: '*' // Replace with your frontend URL
+  origin: 'https://easy-fastfood.netlify.app',
+  credentials: true
 }));
 
 const multer = require('multer');
@@ -166,7 +167,7 @@ app.get('/auth/callback/success', async (req, res) => {
     console.log("newuser", newuser);
   }
   var token = await createToken(mergedUser);
-  res.cookie('access_Token', token, { httpOnly: true, secure: true });
+  res.cookie('access_Token', token, { httpOnly: true, secure: true , sameSite: 'None'});
   res.redirect('http://localhost:5173/items');
   }
   catch (error) {
