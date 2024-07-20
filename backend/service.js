@@ -2,11 +2,21 @@ const express = require('express')
 const app = express()
 const cors = require('cors');
 app.use(express.json())
-app.use(cors({
-  origin: 'https://easy-fastfood.netlify.app',
-  credentials: true
-}));
 
+const allowedOrigins = ['https://easy-fastfood.netlify.app']; // Replace with your actual frontend URL
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // Adjust based on your application's needs
+};
+
+app.use(cors(corsOptions));
 const multer = require('multer');
 const mongoose = require('mongoose');
 const userModel = require('./Model/signupModel')
