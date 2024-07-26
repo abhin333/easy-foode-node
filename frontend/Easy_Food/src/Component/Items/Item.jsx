@@ -25,6 +25,7 @@ import Cookies from 'js-cookie';
 const Item = () => {
   const navigate = useNavigate();
 
+
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const [logo, setLogo] = useState(logo_api);
@@ -36,11 +37,13 @@ const Item = () => {
   const [name, setName] = useState("Burger");
   const [loder, setLoder] = useState(false);
   const [index2, setIndex2] = useState(0);
-  const token = localStorage.getItem('access-token') || Cookies.get('access_Token');
-    
+  const token = localStorage.getItem('access-token') || localStorage.getItem('access_Token')
+
+
 
   useEffect(() => {
     dataFetch();
+    
   }, [name]);
 
   useEffect(() => {
