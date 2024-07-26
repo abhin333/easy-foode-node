@@ -3,20 +3,11 @@ const app = express()
 const cors = require('cors');
 app.use(express.json())
 
-const allowedOrigins = ['https://easy-fastfood.netlify.app']; // Replace with your actual frontend URL
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true // Adjust based on your application's needs
-};
-
-app.use(cors(corsOptions));
 const multer = require('multer');
 const mongoose = require('mongoose');
 const userModel = require('./Model/signupModel')
@@ -175,11 +166,12 @@ app.get('/auth/callback/success', async (req, res) => {
     const newuser = new googleModel({ username: name, email: req.user._json.email });
     await newuser.save();
     console.log("newuser", newuser);
+    }
+    var token = await createToken(mergedUser);
+    // res.cookie('access_Token', token, { httpOnly: true, secure: true , sameSite: 'Lax' });
+    res.redirect(`https://easy-fastfood.netlify.app/items?token=${token}`);
   }
-  var token = await createToken(mergedUser);
-  res.cookie('access_Token', token, { httpOnly: true, secure: true , sameSite: 'Lax' });
-  res.redirect('https://easy-fastfood.netlify.app/items');
-  }
+
   catch (error) {
     console.error("Error in auth callback success route:", error);
     res.status(500).send('Internal Server Error');
