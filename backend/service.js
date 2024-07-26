@@ -4,7 +4,7 @@ const cors = require('cors');
 app.use(express.json())
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://easy-fastfood.netlify.app',
   credentials: true
 }));
 
